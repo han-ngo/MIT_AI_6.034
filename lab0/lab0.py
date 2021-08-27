@@ -43,24 +43,28 @@ def factorial(x):
 def count_pattern(pattern, lst):
     if len(pattern) > len(lst):
         return 0
-    print "pattern: ", pattern, " list: ", lst
+
     patternCount, curCount, pIndex, lIndex = 0, 0, 0, 0
-    while (pIndex, lIndex) in zip(range(len(pattern)), range(len(lst))):
-        print "p: ", pIndex, ": ", pattern[pIndex], " num: ", lIndex, ": ", lst[lIndex]
-        if pattern[pIndex] == lst[lIndex]:
+    while True:
+        if lIndex == len(lst):
+            break # finish looping thru lst
+
+        if pattern[pIndex] == lst[lIndex]: # found similar num
             curCount += 1
-        else:
-            curCount = 0
+        else: # found different num
+            curCount = 0 # reset curCount
+            pIndex = 0 # reset pIndex
+            lIndex += 1 # continue to next num in lst
+            continue
+
         if pIndex == len(pattern)-1:
-            pIndex = 0
-            print "reset pIndex"
-            if curCount == len(pattern):
+            pIndex = 0 # reset pIndex
+            if curCount == len(pattern): # found matching pattern
+                curCount = 0 # reset curCount
                 patternCount += 1
-                print "patternCount++ --> ", patternCount
         else:
             pIndex +=1
         lIndex += 1
-    print "patternCount = ", patternCount
     return patternCount
 
 # Problem 2.2: Expression depth
